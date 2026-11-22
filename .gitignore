@@ -1,0 +1,11 @@
+node_modules
+dist
+*.local
+.DS_Store
+.vite
+
+# Source images kept locally, not part of the site
+/1768331091961.jpg
+/1792742727968.png
+/WhatsApp Image *.jpeg
+/profile.png
