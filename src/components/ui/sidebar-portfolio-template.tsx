@@ -974,6 +974,106 @@ const SPT_CSS = `
 .spt-links{justify-content:center}
 .spt-hero{padding-top:44px}
 }
+/* large screens: the column, type and drawing grow so the page fills the width */
+@container spt (min-width:1200px){
+.spt-grid{grid-template-columns:minmax(300px,340px) minmax(0,1fr)}
+.spt-side{gap:20px;padding:34px 34px 30px 38px}
+.spt-avatar.is-photo{width:112px;height:112px}
+.spt-name{font-size:28px}
+.spt-role{font-size:13.5px}
+.spt-bio{font-size:14px}
+.spt-details{font-size:13.5px;gap:9px}
+.spt-stat b{font-size:23px}
+.spt-stat>span{font-size:11.5px}
+.spt-btn{height:46px;font-size:13.5px}
+.spt-nav{height:70px;padding:0 56px}
+.spt-links a{font-size:13.5px;padding:6px 11px}
+.spt-contact-btn{height:38px;font-size:13px}
+.spt-col{max-width:800px;padding:0 56px}
+.spt-hero{padding:64px 0 76px}
+.spt-art-wrap,.spt-art{width:340px;height:227px}
+.spt-h1{font-size:58px;margin:24px 0 16px}
+.spt-tagline{font-size:16px;max-width:50ch;margin-bottom:28px}
+.spt-cta{height:44px;font-size:13.5px;min-width:220px}
+.spt-sec{padding:68px 0 60px}
+.spt-h2{font-size:36px;margin-bottom:20px}
+.spt-p{font-size:15px}
+.spt-label{font-size:13.5px}
+.spt-chip{height:31px;padding:0 11px;font-size:13px}
+.spt-role h3,.spt-edu h3{font-size:20px}
+.spt-meta{font-size:13px}
+.spt-date{font-size:12.5px}
+.spt-date small{font-size:11.5px}
+.spt-role .spt-p,.spt-edu .spt-p,.spt-bul{font-size:14px}
+.spt-proj h4{font-size:14px}
+.spt-tags button{height:24px;padding:0 8px;font-size:12px}
+.spt-tabs button{height:32px;padding:0 14px;font-size:13px}
+.spt-tab-pill{height:32px}
+.spt-skill-name{font-size:14.5px}
+.spt-skill-lvl{font-size:12px}
+.spt-meter{height:7px}
+.spt-email{height:46px;font-size:14px}
+.spt-foot{font-size:12.5px}
+}
+@container spt (min-width:1600px){
+.spt-grid{grid-template-columns:minmax(340px,380px) minmax(0,1fr)}
+.spt-side{padding:40px 40px 34px 44px}
+.spt-avatar.is-photo{width:124px;height:124px}
+.spt-name{font-size:30px}
+.spt-col{max-width:900px;padding:0 64px}
+.spt-nav{padding:0 64px}
+.spt-art-wrap,.spt-art{width:380px;height:253px}
+.spt-h1{font-size:66px}
+.spt-tagline{font-size:17px}
+.spt-h2{font-size:40px}
+.spt-p{font-size:15.5px}
+.spt-role .spt-p,.spt-edu .spt-p,.spt-bul{font-size:14.5px}
+.spt-role h3,.spt-edu h3{font-size:21px}
+}
+@container spt (min-width:2200px){
+.spt-grid{grid-template-columns:minmax(380px,430px) minmax(0,1fr)}
+.spt-side{padding:48px 46px 40px 52px;gap:24px}
+.spt-avatar.is-photo{width:140px;height:140px}
+.spt-name{font-size:34px}
+.spt-role,.spt-details{font-size:15px}
+.spt-bio{font-size:15.5px}
+.spt-stat b{font-size:27px}
+.spt-stat>span{font-size:12.5px}
+.spt-btn{height:50px;font-size:14.5px}
+.spt-nav{height:78px;padding:0 80px}
+.spt-links a{font-size:15px;padding:7px 13px}
+.spt-contact-btn{height:42px;font-size:14px}
+.spt-col{max-width:1040px;padding:0 80px}
+.spt-art-wrap,.spt-art{width:440px;height:293px}
+.spt-h1{font-size:78px}
+.spt-tagline{font-size:19px}
+.spt-cta{height:50px;font-size:15px;min-width:250px}
+.spt-sec{padding:84px 0 72px}
+.spt-h2{font-size:46px}
+.spt-p{font-size:17px}
+.spt-label{font-size:15px}
+.spt-chip{height:35px;padding:0 13px;font-size:14.5px}
+.spt-role h3,.spt-edu h3{font-size:24px}
+.spt-meta{font-size:14.5px}
+.spt-date{font-size:14px}
+.spt-date small{font-size:12.5px}
+.spt-role .spt-p,.spt-edu .spt-p,.spt-bul{font-size:16px}
+.spt-proj h4{font-size:15.5px}
+.spt-tags button{height:27px;font-size:13.5px}
+.spt-tabs button{height:36px;font-size:14.5px}
+.spt-tab-pill{height:36px}
+.spt-skill-name{font-size:16px}
+.spt-skill-lvl{font-size:13px}
+.spt-meter{height:8px}
+.spt-email{height:50px;font-size:15.5px}
+.spt-foot{font-size:14px}
+}
+/* phones: the section links get their own row so none are pushed off-screen */
+@container spt (max-width:559px){
+.spt-nav{flex-wrap:wrap;height:auto;padding:8px 16px 6px;row-gap:2px}
+.spt-nav-end{margin-left:auto}
+.spt-links{order:3;flex-basis:100%;justify-content:space-between;margin:0 -8px}
+}
 `
 
 /* ---------- component ---------- */
