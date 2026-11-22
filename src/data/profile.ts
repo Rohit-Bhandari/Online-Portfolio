@@ -6,7 +6,7 @@ import profilePicture from "@/assets/profile-picture.png"
 export const profile: SidebarPortfolioTemplateProps = {
   name: "Rohit Bhandari",
   role: "Machine Learning Engineer · TELUS Digital",
-  bio: "Building and scaling production LLM systems, from fine-tuning to serving.",
+  bio: "ML engineer taking LLM systems from prototype to production, and keeping them there.",
   avatarSrc: profilePicture,
   signature: false,
   stats: [
@@ -17,7 +17,7 @@ export const profile: SidebarPortfolioTemplateProps = {
   details: [
     { icon: "pin", label: "Bengaluru, India" },
     { icon: "briefcase", label: "4+ years in ML engineering" },
-    { icon: "spark", label: "LLMs · RAG · Inference" },
+    { icon: "spark", label: "GraphRAG · LLM Evals · Serving" },
     { icon: "cap", label: "B.Tech, UVCE · CGPA 9.3/10" },
   ],
   socials: [
@@ -105,6 +105,12 @@ export const profile: SidebarPortfolioTemplateProps = {
             "Fine-tuning (SFT, LoRA)",
             "Inference Optimization",
             "MLOps",
+            "Graphiti",
+            "Kuzu",
+            "PostgreSQL (pgvector)",
+            "RabbitMQ",
+            "Amazon Neptune",
+            "ArgoCD",
           ],
         },
       ],
@@ -158,6 +164,11 @@ export const profile: SidebarPortfolioTemplateProps = {
             "Generative AI",
             "Computer Vision",
             "Time Series Forecasting",
+            "vLLM",
+            "TensorRT-LLM",
+            "NVIDIA Triton",
+            "Vertex AI",
+            "LightGBM",
           ],
         },
         {
@@ -168,7 +179,7 @@ export const profile: SidebarPortfolioTemplateProps = {
           highlights: [
             "Built models for time series forecasting, image classification, object detection, summarization, and sentiment analysis using Python, PyTorch, and TensorFlow.",
           ],
-          skills: ["Time Series Forecasting", "Computer Vision"],
+          skills: ["Time Series Forecasting", "Computer Vision", "Python", "PyTorch", "TensorFlow"],
         },
       ],
     },
