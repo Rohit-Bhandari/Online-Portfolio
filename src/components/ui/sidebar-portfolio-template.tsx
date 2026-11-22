@@ -15,7 +15,7 @@ import * as React from "react"
 /* ---------- types ---------- */
 
 export type SptDetailIcon = "pin" | "briefcase" | "globe" | "clock" | "mail" | "spark" | "cap"
-export type SptSocialIcon = "linkedin" | "x" | "github" | "dribbble" | "instagram" | "globe" | "mail"
+export type SptSocialIcon = "linkedin" | "x" | "github" | "dribbble" | "instagram" | "globe" | "mail" | "whatsapp" | "phone"
 export type SptGlyph = "orbit" | "flower" | "hash" | "cap" | "book" | "spark" | "bolt" | "leaf" | "cube"
 
 export type SptDetail = { icon: SptDetailIcon; label: string }
@@ -99,6 +99,12 @@ export interface SidebarPortfolioTemplateProps {
   available?: boolean
   /** The words beside the pulse. */
   availableText?: string
+  /** A pill above the hero headline that opens the contact box, e.g. "Available now". */
+  heroBadge?: string
+  /** A phone number as it should read, e.g. "+91 70229 27136". Adds call and WhatsApp options. */
+  phone?: string
+  /** The message a WhatsApp chat opens with. */
+  whatsappText?: string
   /** IANA zone for the local-time line in Contact, e.g. "Europe/Berlin". */
   timeZone?: string
   city?: string
@@ -526,6 +532,20 @@ function SocialIcon({ icon }: { icon: SptSocialIcon }) {
           <path d="m2.4 4.4 5.6 4.2 5.6-4.2" />
         </g>
       )
+    case "whatsapp":
+      return (
+        <g {...p}>
+          <path d="M2.6 13.6l.8-2.8a5.9 5.9 0 1 1 2.2 2.1Z" />
+          <path d="M6 5.4c.3-.5.7-.5 1 0l.4.9c.1.3 0 .5-.2.7l-.3.3c.4.8 1 1.4 1.8 1.8l.3-.3c.2-.2.4-.3.7-.2l.9.4c.5.2.5.7 0 1-.9.5-2 .3-3.2-.7S5.5 6.8 6 5.4Z" strokeWidth={1} />
+        </g>
+      )
+    case "phone":
+      return (
+        <path
+          d="M5.2 2.4 3.9 2.6c-.8.2-1.4 1-1.3 1.8.5 4.6 4.1 8.2 8.7 8.7.8.1 1.6-.5 1.8-1.3l.2-1.3c.1-.5-.2-1-.7-1.2l-1.7-.7c-.4-.2-.9 0-1.2.3l-.6.7a7 7 0 0 1-3.2-3.2l.7-.6c.3-.3.5-.8.3-1.2l-.7-1.7c-.2-.5-.7-.8-1.2-.7Z"
+          {...p}
+        />
+      )
     default:
       return (
         <g {...p}>
@@ -931,6 +951,20 @@ const SPT_CSS = `
 .spt-dialog-actions .spt-btn{padding:0 10px;white-space:nowrap}
 .spt-dialog-note{margin:12px 0 0;font-size:11.5px;color:var(--spt-faint);text-align:center;overflow-wrap:anywhere}
 .spt-dialog-note b{font-weight:500;color:var(--spt-muted)}
+.spt-dialog-note a{color:var(--spt-muted);text-decoration:underline;text-underline-offset:2px}
+.spt-dialog-note a:hover{color:var(--spt-accent)}
+.spt-opt{color:var(--spt-faint)}
+.spt-badge{display:inline-flex;align-items:center;gap:8px;margin:20px 0 -4px;padding:5px 12px 5px 10px;border-radius:999px;background:color-mix(in oklab,#22a860 10%,var(--spt-paper));box-shadow:inset 0 0 0 1px color-mix(in oklab,#22a860 28%,var(--spt-paper));font-size:12px;font-weight:500;color:var(--spt-ink);transition:background .2s,transform .2s}
+.spt-badge:hover{background:color-mix(in oklab,#22a860 16%,var(--spt-paper));transform:translateY(-1px)}
+.spt-badge svg{color:var(--spt-muted);transition:transform .25s}
+.spt-badge:hover svg{transform:translateX(2px)}
+.spt-reach{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:20px 0 28px}
+.spt-reach .spt-email{grid-column:1/-1;width:100%;min-width:0;justify-content:flex-start}
+@container spt (min-width:1200px){.spt-reach:not(.is-single) .spt-email{grid-column:auto}}
+.spt-reach .spt-email .spt-copy{margin-left:auto;padding-left:8px}
+.spt-reach .spt-btn{width:100%}
+.spt-reach .spt-btn svg{flex:none}
+.spt-wa svg{color:#25a35a}
 .spt-toast{position:absolute;left:50%;bottom:18px;z-index:30;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--spt-ink);color:var(--spt-paper);font-size:12.5px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);transform:translateX(-50%);animation:spt-toast .35s cubic-bezier(.2,1.2,.4,1) both;pointer-events:none}
 
 /* motion */
@@ -1070,6 +1104,28 @@ const SPT_CSS = `
 .spt-email{height:50px;font-size:15.5px}
 .spt-foot{font-size:14px}
 }
+/* short windows (most laptops once the browser's toolbars are counted): the
+   sidebar tightens so Download CV stays on screen without scrolling */
+@media (max-height:860px){
+@container spt (min-width:880px){
+.spt-side{gap:13px;padding-top:22px;padding-bottom:20px}
+.spt-side-top{grid-template-columns:auto 1fr;gap:4px 14px}
+.spt-avatar,.spt-avatar.is-photo{width:64px;height:64px;margin-bottom:0}
+.spt-name{font-size:22px}
+.spt-role{font-size:12px}
+.spt-details{gap:6px}
+.spt-side-foot{gap:10px}
+}
+}
+@media (max-height:680px){
+@container spt (min-width:880px){
+.spt-side{gap:10px;padding-top:16px;padding-bottom:14px}
+.spt-avatar,.spt-avatar.is-photo{width:54px;height:54px}
+.spt-bio{font-size:12.5px;line-height:1.5}
+.spt-details{gap:4px;font-size:12.5px}
+.spt-btn{height:40px}
+}
+}
 /* phones: the section links get their own row so none are pushed off-screen */
 @container spt (max-width:559px){
 .spt-nav{flex-wrap:wrap;height:auto;padding:8px 16px 6px;row-gap:2px}
@@ -1109,6 +1165,9 @@ export default function SidebarPortfolioTemplate({
   contactText = "Have a product in mind, a team that needs another pair of hands, or just want to talk shop? My inbox is open, and I usually reply within a day.",
   available = true,
   availableText = "Available for new projects",
+  heroBadge,
+  phone,
+  whatsappText = "",
   timeZone = "America/Chicago",
   city = "Houston",
   labels: labelsIn,
@@ -1147,7 +1206,10 @@ export default function SidebarPortfolioTemplate({
   const [tabPill, setTabPill] = React.useState(null as { x: number; w: number } | null)
   const [openEdu, setOpenEdu] = React.useState(null as number | null)
   const [dialog, setDialog] = React.useState(false)
-  const [draft, setDraft] = React.useState({ from: "", message: "" })
+  const [draft, setDraft] = React.useState({ from: "", role: "", message: "" })
+  // Phones can dial a tel: link; on a computer the number is copied instead.
+  const [canCall, setCanCall] = React.useState(false)
+  React.useEffect(() => setCanCall(window.matchMedia("(pointer: coarse)").matches), [])
   const [toast, setToast] = React.useState(null as Toast | null)
   const [quips, setQuips] = React.useState([] as Quip[])
   const [sigRun, setSigRun] = React.useState(0)
@@ -1320,15 +1382,19 @@ export default function SidebarPortfolioTemplate({
     sc.scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" })
   }
 
-  const copyEmail = () => {
-    const done = () => say("Copied " + email)
-    const fail = () => say(email)
+  const copyText = (text: string) => {
+    const done = () => say("Copied " + text)
+    const fail = () => say(text)
     try {
-      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(email).then(done, fail)
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done, fail)
       else fail()
     } catch {
       fail()
     }
+  }
+  const copyPhone = () => phone && copyText(phone)
+  const copyEmail = () => {
+    copyText(email)
   }
 
   const downloadCv = () => {
@@ -1409,8 +1475,21 @@ export default function SidebarPortfolioTemplate({
 
   // One draft, three ways to send it: Gmail and Outlook on the web work for
   // anyone signed in to them; mailto needs a mail app set up on the device.
-  const subject = encodeURIComponent("Hello from " + (draft.from.trim() || "your portfolio"))
+  // The subject names the role when there is one, so it stands out in an inbox:
+  // "Senior ML Engineer opportunity · Name, Company".
+  const who = draft.from.trim()
+  const roleIn = draft.role.trim()
+  const firstName = name.trim().split(/\s+/)[0] || name
+  const subjectText = roleIn
+    ? roleIn + " opportunity" + (who ? " · " + who : "")
+    : who
+      ? "Opportunity for " + firstName + " · " + who
+      : "Opportunity for " + firstName + " (via portfolio)"
+  const subject = encodeURIComponent(subjectText)
   const body = encodeURIComponent(draft.message)
+  const phoneDigits = (phone ?? "").replace(/\D/g, "")
+  const telUrl = "tel:+" + phoneDigits
+  const whatsappUrl = "https://wa.me/" + phoneDigits + (whatsappText ? "?text=" + encodeURIComponent(whatsappText) : "")
   const to = encodeURIComponent(email)
   const mailto = "mailto:" + email + "?subject=" + subject + "&body=" + body
   const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=" + to + "&su=" + subject + "&body=" + body
@@ -1636,6 +1715,15 @@ export default function SidebarPortfolioTemplate({
                     </span>
                   ))}
                 </div>
+                {heroBadge && (
+                  <button type="button" className="spt-badge" onClick={openDialog}>
+                    <span className="spt-dot" aria-hidden="true" />
+                    {heroBadge}
+                    <svg viewBox="0 0 14 14" width="11" height="11" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2.5 7h9M8 3.5 11.5 7 8 10.5" />
+                    </svg>
+                  </button>
+                )}
                 <h1 className="spt-h1 spt-serif">{headline}</h1>
                 {tagline && <p className="spt-tagline">{tagline}</p>}
                 {experience.length > 0 && (
@@ -1932,7 +2020,8 @@ export default function SidebarPortfolioTemplate({
                     {contactTitle}
                   </h2>
                   {contactText && <p className="spt-p">{contactText}</p>}
-                  <div className="spt-mailrow">
+                  {/* email | phone above, Get in touch | WhatsApp below, on one grid */}
+                  <div className={"spt-reach" + (phone ? "" : " is-single")}>
                     <button type="button" className="spt-email" onClick={copyEmail}>
                       <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
                         <SocialIcon icon="mail" />
@@ -1940,9 +2029,34 @@ export default function SidebarPortfolioTemplate({
                       {email}
                       <span className="spt-copy">Copy</span>
                     </button>
+                    {phone && (canCall ? (
+                      <a className="spt-email" href={telUrl}>
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                          <SocialIcon icon="phone" />
+                        </svg>
+                        {phone}
+                        <span className="spt-copy">Call</span>
+                      </a>
+                    ) : (
+                      <button type="button" className="spt-email" onClick={copyPhone}>
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                          <SocialIcon icon="phone" />
+                        </svg>
+                        {phone}
+                        <span className="spt-copy">Copy</span>
+                      </button>
+                    ))}
                     <button type="button" className="spt-btn spt-btn-dark" onClick={openDialog}>
                       {L.contactMe}
                     </button>
+                    {phone && (
+                      <a className="spt-btn spt-btn-soft spt-wa" href={whatsappUrl} target="_blank" rel="noreferrer">
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                          <SocialIcon icon="whatsapp" />
+                        </svg>
+                        WhatsApp
+                      </a>
+                    )}
                   </div>
                   <footer className="spt-foot">
                     <span>
@@ -1973,10 +2087,10 @@ export default function SidebarPortfolioTemplate({
             <div className="spt-dialog-head">
               <div>
                 <h2 id={uid + "-dlg"} className="spt-serif">
-                  Say hello
+                  Let's talk about a role
                 </h2>
                 <p className="spt-p" style={{ margin: "4px 0 0" }}>
-                  Write a note, then send it from Gmail, Outlook or your mail app. Your name and message are filled in for you.
+                  Hiring for an AI, ML or LLM role? Add a few details and it opens as a ready-to-send email.
                 </p>
               </div>
               <button type="button" className="spt-x" onClick={closeDialog} aria-label="Close">
@@ -1986,8 +2100,14 @@ export default function SidebarPortfolioTemplate({
               </button>
             </div>
             <label className="spt-field">
-              Your name
-              <input ref={firstFieldRef} value={draft.from} onChange={(e) => setDraft({ ...draft, from: e.target.value })} placeholder="Jane from Acme" />
+              Your name & company
+              <input ref={firstFieldRef} value={draft.from} onChange={(e) => setDraft({ ...draft, from: e.target.value })} placeholder="Name, company" />
+            </label>
+            <label className="spt-field">
+              <span>
+                Role <span className="spt-opt">(optional)</span>
+              </span>
+              <input value={draft.role} onChange={(e) => setDraft({ ...draft, role: e.target.value })} placeholder="e.g. Senior ML Engineer" />
             </label>
             <label className="spt-field">
               Message
@@ -1995,7 +2115,7 @@ export default function SidebarPortfolioTemplate({
                 rows={4}
                 value={draft.message}
                 onChange={(e) => setDraft({ ...draft, message: e.target.value })}
-                placeholder="Hi! We're building…"
+                placeholder={"Hi " + firstName + ", we're hiring for…"}
               />
             </label>
             <div className="spt-dialog-actions">
@@ -2013,7 +2133,16 @@ export default function SidebarPortfolioTemplate({
               </button>
             </div>
             <p className="spt-dialog-note">
-              Or write to <b>{email}</b> from anywhere.
+              Or email <b>{email}</b>
+              {phone && (
+                <>
+                  {" "}· call or{" "}
+                  <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                    WhatsApp
+                  </a>{" "}
+                  <b style={{ whiteSpace: "nowrap" }}>{phone}</b>
+                </>
+              )}
             </p>
           </div>
         </div>

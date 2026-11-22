@@ -5,7 +5,7 @@ import profilePicture from "@/assets/profile-picture.png"
 
 export const profile: SidebarPortfolioTemplateProps = {
   name: "Rohit Bhandari",
-  role: "Machine Learning Engineer · TELUS Digital",
+  role: "Machine Learning Engineer · LLM Systems",
   bio: "Taking LLM systems from prototype to production, and keeping them reliable at scale.",
   avatarSrc: profilePicture,
   signature: false,
@@ -15,6 +15,7 @@ export const profile: SidebarPortfolioTemplateProps = {
     { value: "20K", label: "Google raters served" },
   ],
   details: [
+    { icon: "clock", label: "Immediate joiner" },
     { icon: "pin", label: "Bengaluru, India" },
     { icon: "briefcase", label: "4+ years in ML engineering" },
     { icon: "spark", label: "GraphRAG · LLM Evals · Serving" },
@@ -24,8 +25,16 @@ export const profile: SidebarPortfolioTemplateProps = {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/bhandari-rohit/", icon: "linkedin" },
     { label: "GitHub", href: "https://github.com/Rohit-Bhandari", icon: "github" },
     { label: "Email", href: "mailto:bhandarirohit080@gmail.com", icon: "mail" },
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/917022927136?text=" + encodeURIComponent("Hi Rohit, I came across your portfolio and would like to talk about a role."),
+      icon: "whatsapp",
+    },
   ],
   email: "bhandarirohit080@gmail.com",
+  phone: "+91 70229 27136",
+  whatsappText: "Hi Rohit, I came across your portfolio and would like to talk about a role.",
+  labels: { contactMe: "Get in touch" },
   cvUrl: import.meta.env.BASE_URL + "Rohit-Bhandari-Resume.pdf",
 
   headline: "Machine Learning Engineer",
@@ -66,7 +75,7 @@ export const profile: SidebarPortfolioTemplateProps = {
           title: "Software Development - Machine Learning Engineer",
           type: "Bengaluru",
           start: "Feb 2025",
-          end: "Present",
+          end: "Nov 2026",
           projects: [
             {
               name: "Google Search Raters Assistant",
@@ -302,11 +311,12 @@ export const profile: SidebarPortfolioTemplateProps = {
     },
   ],
 
-  contactTitle: "Let's build reliable AI systems",
+  contactTitle: "Hiring an AI or ML engineer?",
   contactText:
-    "Working on RAG, LLM evaluation, or inference at scale, or just want to talk shop about knowledge graphs and serving? My inbox is open.",
+    "I'm available to start right away and looking for my next role as an AI Engineer, Senior ML Engineer or LLM/GenAI Engineer, building production LLM systems: retrieval, evaluation, and serving at scale. Send me a note and I'll get back to you quickly.",
   available: true,
-  availableText: "Open to connect",
+  availableText: "Available now · Open to AI, ML & LLM roles",
+  heroBadge: "Available now · Immediate joiner",
   timeZone: "Asia/Kolkata",
   city: "Bengaluru",
   height: "100svh",
