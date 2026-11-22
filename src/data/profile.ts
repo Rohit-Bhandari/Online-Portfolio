@@ -6,7 +6,7 @@ import profilePicture from "@/assets/profile-picture.png"
 export const profile: SidebarPortfolioTemplateProps = {
   name: "Rohit Bhandari",
   role: "Machine Learning Engineer · TELUS Digital",
-  bio: "ML engineer taking LLM systems from prototype to production, and keeping them there.",
+  bio: "Taking LLM systems from prototype to production, and keeping them reliable at scale.",
   avatarSrc: profilePicture,
   signature: false,
   stats: [
@@ -42,7 +42,7 @@ export const profile: SidebarPortfolioTemplateProps = {
 
   about: [
     "I'm a Machine Learning Engineer with 4+ years of building and scaling production LLM systems across knowledge-graph retrieval and RAG, LLM evaluation and guardrails, and inference optimization.",
-    "I led the architecture of a Knowledge Graph (Graphiti, Kuzu) + RAG platform rolled out to 20,000 Google raters, scaled an LLM resume-intelligence pipeline from 300K to 5.8M+ resumes (70s+ → 4–7s latency), and raised an LLM-as-a-Judge system's alignment with human raters on egocentric robotics data from 63% to 92%. I'm hands-on from fine-tuning (SFT, LoRA) to production serving (vLLM, TensorRT-LLM), and I enjoy guiding junior engineers.",
+    "I led the architecture of a Knowledge Graph (Graphiti, Kuzu) + RAG platform rolled out to 20,000 Google raters, scaled an LLM resume-intelligence pipeline from 300K to 5.8M+ resumes (70s+ → 4–7s latency), and raised an LLM-as-a-Judge system's alignment with human raters on egocentric robotics data from 63% to 92%. I'm hands-on from fine-tuning (SFT, LoRA) to production serving (vLLM, TensorRT-LLM).",
   ],
   keySkills: [
     "RAG & GraphRAG",

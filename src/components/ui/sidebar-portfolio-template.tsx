@@ -771,8 +771,8 @@ const SPT_CSS = `
 .spt-ico{color:var(--spt-muted);flex:none}
 .spt-side-foot{display:grid;gap:14px;margin-top:4px}
 .spt-socials{display:flex;gap:6px;margin:0 0 0 -6px;padding:0;list-style:none}
-.spt-socials a{display:grid;place-items:center;width:30px;height:30px;border-radius:6px;color:var(--spt-muted);transition:color .2s,background .2s,transform .2s}
-.spt-socials a:hover{color:var(--spt-ink);background:var(--spt-soft2);transform:translateY(-2px)}
+.spt-socials a,.spt-socials button{display:grid;place-items:center;width:30px;height:30px;border-radius:6px;color:var(--spt-muted);transition:color .2s,background .2s,transform .2s}
+.spt-socials a:hover,.spt-socials button:hover{color:var(--spt-ink);background:var(--spt-soft2);transform:translateY(-2px)}
 .spt-actions{display:grid;grid-template-columns:1fr 44px;gap:6px}
 .spt-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:42px;padding:0 16px;border-radius:3px;font-size:12.5px;font-weight:500;transition:background .2s,transform .15s,color .2s}
 .spt-btn:active{transform:translateY(1px)}
@@ -927,8 +927,10 @@ const SPT_CSS = `
 .spt-field input,.spt-field textarea{font:inherit;font-size:13px;color:var(--spt-ink);background:var(--spt-soft);border:1px solid var(--spt-line);border-radius:4px;padding:9px 10px;outline:none;resize:vertical;transition:border-color .2s,background .2s}
 .spt-field input:focus-visible,.spt-field textarea:focus-visible{outline:none}
 .spt-field input:focus,.spt-field textarea:focus{border-color:var(--spt-accent);background:var(--spt-paper)}
-.spt-dialog-actions{display:flex;gap:8px;margin-top:16px}
-.spt-dialog-actions .spt-btn{flex:1}
+.spt-dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.spt-dialog-actions .spt-btn{padding:0 10px;white-space:nowrap}
+.spt-dialog-note{margin:12px 0 0;font-size:11.5px;color:var(--spt-faint);text-align:center;overflow-wrap:anywhere}
+.spt-dialog-note b{font-weight:500;color:var(--spt-muted)}
 .spt-toast{position:absolute;left:50%;bottom:18px;z-index:30;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--spt-ink);color:var(--spt-paper);font-size:12.5px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);transform:translateX(-50%);animation:spt-toast .35s cubic-bezier(.2,1.2,.4,1) both;pointer-events:none}
 
 /* motion */
@@ -1405,10 +1407,27 @@ export default function SidebarPortfolioTemplate({
     }
   }
 
-  const mailto =
-    "mailto:" + email +
-    "?subject=" + encodeURIComponent("Hello from " + (draft.from.trim() || "your portfolio")) +
-    "&body=" + encodeURIComponent(draft.message)
+  // One draft, three ways to send it: Gmail and Outlook on the web work for
+  // anyone signed in to them; mailto needs a mail app set up on the device.
+  const subject = encodeURIComponent("Hello from " + (draft.from.trim() || "your portfolio"))
+  const body = encodeURIComponent(draft.message)
+  const to = encodeURIComponent(email)
+  const mailto = "mailto:" + email + "?subject=" + subject + "&body=" + body
+  const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=" + to + "&su=" + subject + "&body=" + body
+  const outlookUrl = "https://outlook.office.com/mail/deeplink/compose?to=" + to + "&subject=" + subject + "&body=" + body
+  // A mail app may not be set up, and the browser gives no sign when that
+  // happens, so the address is copied as well: the visitor always has it.
+  const openMailApp = () => {
+    try {
+      navigator.clipboard?.writeText(email).then(
+        () => say("Opening your mail app · address copied too"),
+        () => say("Opening your mail app"),
+      )
+    } catch {
+      say("Opening your mail app")
+    }
+    later(closeDialog, 150)
+  }
   const reveal = (key: string) => ({ "data-reveal": key, "data-in": seen[key] ? "" : undefined, className: "spt-reveal" })
   const firstLogos = experience.slice(0, 3)
 
@@ -1499,11 +1518,20 @@ export default function SidebarPortfolioTemplate({
                 <ul className="spt-socials">
                   {socials.map((s, i) => (
                     <li key={i}>
-                      <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} title={s.label}>
-                        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-                          <SocialIcon icon={s.icon} />
-                        </svg>
-                      </a>
+                      {s.href.startsWith("mailto:") ? (
+                        // An email link opens the compose sheet, which works without a mail app.
+                        <button type="button" onClick={openDialog} aria-label={s.label} title={"Email " + email}>
+                          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                            <SocialIcon icon={s.icon} />
+                          </svg>
+                        </button>
+                      ) : (
+                        <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} title={s.label}>
+                          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                            <SocialIcon icon={s.icon} />
+                          </svg>
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -1948,7 +1976,7 @@ export default function SidebarPortfolioTemplate({
                   Say hello
                 </h2>
                 <p className="spt-p" style={{ margin: "4px 0 0" }}>
-                  This opens a draft to {email} in your mail app.
+                  Write a note, then send it from Gmail, Outlook or your mail app. Your name and message are filled in for you.
                 </p>
               </div>
               <button type="button" className="spt-x" onClick={closeDialog} aria-label="Close">
@@ -1971,13 +1999,22 @@ export default function SidebarPortfolioTemplate({
               />
             </label>
             <div className="spt-dialog-actions">
+              <a className="spt-btn spt-btn-dark" href={gmailUrl} target="_blank" rel="noreferrer" onClick={() => later(closeDialog, 150)}>
+                Open in Gmail
+              </a>
+              <a className="spt-btn spt-btn-soft" href={outlookUrl} target="_blank" rel="noreferrer" onClick={() => later(closeDialog, 150)}>
+                Open in Outlook
+              </a>
+              <a className="spt-btn spt-btn-soft" href={mailto} onClick={openMailApp}>
+                Use mail app
+              </a>
               <button type="button" className="spt-btn spt-btn-soft" onClick={copyEmail}>
                 Copy email
               </button>
-              <a className="spt-btn spt-btn-dark" href={mailto} onClick={() => later(closeDialog, 150)}>
-                Open draft
-              </a>
             </div>
+            <p className="spt-dialog-note">
+              Or write to <b>{email}</b> from anywhere.
+            </p>
           </div>
         </div>
       )}
